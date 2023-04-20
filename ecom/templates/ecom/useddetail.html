@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+</head>
+{% extends 'ecom/base.html' %}
+{% load static %}
+{% block content %}
+<body style="background-color: rgb(0, 0, 0);">
+    <h1 class="text-white">{{ used.title }}</h1>
+
+    <section class="text-gray-600 dark:bg-gray-900 body-font overflow-hidden">
+        <div class="container px-5 py-24 mx-auto">
+          <div class="lg:w-4/5 mx-auto flex flex-wrap">
+            <img
+              alt="APPLE iPhone 11 (White, 128 GB)"
+              class="lg:w-1/2 w-full lg:h-96 h-64 object-contain object-center rounded"
+              src="{{ used.image.url }}" />
+            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h1
+                class="text-white text-3xl title-font font-medium mb-1">
+                {{ used.title }}
+              </h1>
+              <p class="leading-relaxed text-gray-300">
+                {{ used.district }}, {{used.state}}
+              </p>
+              <br>
+              <div class="flex">
+                <span
+                  class="title-font font-medium text-2xl text-white">
+                  ₹{{ used.price }}
+                </span>
+                <button onclick="copyText()"
+                  class="ml-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
+                  {{used.contact}}
+                </button>
+              </div>
+              <br>
+              <br>
+              <p class="leading-relaxed text-gray-300">
+                {{ used.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </body>
+    </html>
+{% endblock %}
