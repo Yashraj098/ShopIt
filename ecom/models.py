@@ -30,6 +30,8 @@ class Item(models.Model):
     description_short = models.CharField(max_length=50)
     description_long = models.TextField()
     image = models.ImageField(upload_to='media/Items/', null=True, blank=True)
+    state=models.CharField(max_length=20,default="")
+    district=models.CharField(max_length=20,default="")
 
     def __str__(self):
         return self.title
@@ -49,6 +51,8 @@ class Business(models.Model):
     description_short = models.CharField(max_length=50)
     description_long = models.TextField()
     image = models.ImageField(upload_to='media/business/', null=True, blank=True)
+    state=models.CharField(max_length=20,default="")
+    district=models.CharField(max_length=20,default="")
 
     def __str__(self):
         return self.title
