@@ -31,12 +31,15 @@ urlpatterns = [
     path('',views.home, name='home'),
     path('catalog/',views.catalog,name='catalog'),
     path('orders/',views.orders,name='orders'),
+    path('catalog/<int:item_id>/', views.itemdetail, name='itemdetail'),
     #REFUB
     path('used/',views.used,name='used'),
     path('used/post/',views.usedpost,name='usedpost'),
-    path('<int:used_id>/', views.useddetail, name='useddetail'),
+    path('used/<int:used_id>/', views.useddetail, name='useddetail'),
     #Business
     path('business/',views.business,name='business'),
+    path('business/<int:product_id>/', views.businessdetail, name='businessdetail'),
+    
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

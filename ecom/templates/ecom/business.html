@@ -6,7 +6,37 @@
 {% load static %}
 {% block content %}
 <body style="background-color: rgb(0, 0, 0);">
-    <h1 class="text-white">Business</h1>
-    </body>
-    </html>
+    <h5 class="text-white" style="font-size: 30px; margin-left: 50px;">{{products.count}} products found</h5>
+      
+  
+  
+  
+      <section class="text-gray-600 dark:text-gray-900 body-font">
+          <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -m-4">
+              {% for product in products %}
+              <div class="lg:w-1/4 sm:w-1/2 p-4 w-full">
+                <a class="block relative h-48 rounded overflow-hidden" href="{% url 'businessdetail' product.id %}">
+                  <img
+                    class="object-contain object-center w-full h-full block"
+                    src="{{ product.image.url }}" />
+                </a>
+                <div class="mt-4">
+                  <h3
+                    class="title-font text-lg font-medium text-white">
+                    {{ product.title }}
+                  </h3>
+                  <p class="mt-1 text-gray-300">₹{{ product.disc_price }}</p>
+                  <h2
+                    class="text-gray-300 text-xs tracking-widest title-font mb-1">
+                    {{ product.description_short|striptags|truncatechars:40 }}
+                  </h2>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+      </body>
+      </html>
 {% endblock %}

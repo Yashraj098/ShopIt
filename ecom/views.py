@@ -4,8 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import UsedPostForm
-from .models import Used
+from .forms import UsedPostForm,ItemForm,BusinessForm
+from .models import Used,Item,Business
 from django.http import HttpResponseRedirect
 
 
@@ -59,7 +59,26 @@ def orders(request):
 #ECOM
 
 def catalog(request):
-    return render(request, 'ecom/catalog.html')
+    Items= Item.objects.order_by('-title')
+    return render(request, 'ecom/catalog.html',{'Items':Items})
+
+def itemdetail(request, product_id):
+    product= get_object_or_404(Item,pk=product_id)
+    return render(request, 'ecom/itemdetail.html', {'item':product})
+
+@login_required
+def itempost(request):
+    if request.method == 'POST':
+        form = ItemForm(request.POST,request.FILES)
+        if form.is_valid():
+            newused=form.save(commit=False)
+            newused.user=request.user
+            newused.save()
+            return HttpResponseRedirect('/catalog/')
+    else:
+        form = ItemForm()
+
+    return render(request, 'ecom/itempost.html', {'form': form})
 
 
 #REFUB
@@ -89,4 +108,23 @@ def useddetail(request, used_id):
 #BUSINESS
 
 def business(request):
-    return render(request, 'ecom/business.html')
+    products= Business.objects.order_by('-title')
+    return render(request, 'ecom/business.html',{'products':products})
+
+def businessdetail(request, product_id):
+    product= get_object_or_404(Business,pk=product_id)
+    return render(request, 'ecom/businessdetail.html', {'product':product})
+
+@login_required
+def businesspost(request):
+    if request.method == 'POST':
+        form = BusinessForm(request.POST,request.FILES)
+        if form.is_valid():
+            newused=form.save(commit=False)
+            newused.user=request.user
+            newused.save()
+            return HttpResponseRedirect('/business/')
+    else:
+        form = BusinessForm()
+
+    return render(request, 'ecom/businesspost.html', {'form': form})
