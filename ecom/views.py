@@ -59,8 +59,12 @@ def orders(request):
 #ECOM
 
 def catalog(request):
+    if request.user.username == "admin":
+        admin=True
+    else:
+        admin=False
     Items= Item.objects.order_by('-title')
-    return render(request, 'ecom/catalog.html',{'Items':Items})
+    return render(request, 'ecom/catalog.html',{'Items':Items,'admin':admin})
 
 def itemdetail(request, product_id):
     product= get_object_or_404(Item,pk=product_id)
@@ -109,7 +113,11 @@ def useddetail(request, used_id):
 
 def business(request):
     products= Business.objects.order_by('-title')
-    return render(request, 'ecom/business.html',{'products':products})
+    if request.user.username == "admin":
+        admin=True
+    else:
+        admin=False
+    return render(request, 'ecom/business.html',{'products':products,'admin':admin})
 
 def businessdetail(request, product_id):
     product= get_object_or_404(Business,pk=product_id)

@@ -64,11 +64,11 @@
               </div>
               <ul
                 class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
-                {% if request.get_full_path == "/used/" or request.get_full_path == "/business/" %}
+                {% if request.get_full_path != "/catalog/"%}
                 <li>
                   <a
                     class="text-sm text-gray-300 hover:text-gray-600 dark:text-gray-300"
-                    href="{% url 'home' %}">
+                    href="{% url 'catalog' %}">
                     Shop New
                   </a>
                 </li>

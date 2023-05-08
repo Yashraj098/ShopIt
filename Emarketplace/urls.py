@@ -32,6 +32,7 @@ urlpatterns = [
     path('catalog/',views.catalog,name='catalog'),
     path('orders/',views.orders,name='orders'),
     path('catalog/<int:item_id>/', views.itemdetail, name='itemdetail'),
+    path('catalog/post/',views.itempost,name='itempost'),
     #REFUB
     path('used/',views.used,name='used'),
     path('used/post/',views.usedpost,name='usedpost'),
@@ -39,6 +40,7 @@ urlpatterns = [
     #Business
     path('business/',views.business,name='business'),
     path('business/<int:product_id>/', views.businessdetail, name='businessdetail'),
+    path('business/post/',views.businesspost,name='businesspost'),
     
 
 

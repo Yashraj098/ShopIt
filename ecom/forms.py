@@ -7,26 +7,17 @@ class UsedPostForm(ModelForm):
         model= Used
         exclude=["user"]
 
-    def __init__(self, *args, **kwargs):
-        super(UsedPostForm, self).__init__(*args, **kwargs)
-        self.fields['image'].required = False
 
     
 class ItemForm(ModelForm):
     class Meta:
         model=Item
-        exclude=[]
+        exclude=["user"]
 
-    def __init__(self, *args, **kwargs):
-        super(UsedPostForm, self).__init__(*args, **kwargs)
-        self.fields['image'].required = False
 
 
 class BusinessForm(ModelForm):
     class Meta:
         model=Business
-        exclude=[]
+        exclude=["user"]
     
-    def __init__(self, *args, **kwargs):
-        super(UsedPostForm, self).__init__(*args, **kwargs)
-        self.fields['image'].required = False
