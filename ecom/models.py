@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from phone_field import PhoneField
 from phonenumber_field.modelfields import PhoneNumberField
 
-# Create your models here.
 
 #Used Products
 class Used(models.Model):
@@ -19,6 +18,27 @@ class Used(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @staticmethod
+    def get_all_useds():
+        return Used.objects.all()
+    @staticmethod
+    def get_all_useds_by_district(dist):
+        if(dist):
+            return Used.objects.filter(district=dist)
+        else:
+            return Used.get_all_useds()
+
+#Category List
+class Category(models.Model):
+    title = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.category
+    @staticmethod
+    def get_all_category():
+        return Category.objects.all()
+
 
 #New Products
 class Item(models.Model):
@@ -36,6 +56,24 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+    @staticmethod
+    def get_all_items():
+        return Item.objects.all()
+    @staticmethod
+    def get_all_items_by_district(dist):
+        if(dist):
+            return Item.objects.filter(district=dist)
+        else:
+            return Item.get_all_business()
+        
+    @staticmethod
+    def get_all_items_by_category(cat):
+        if(cat):
+            return Item.objects.filter(category=cat)
+        else:
+            return Item.get_all_business()
     
 #Business Products
 
@@ -58,3 +96,20 @@ class Business(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @staticmethod
+    def get_all_business():
+        return Business.objects.all()
+    @staticmethod
+    def get_all_business_by_district(dist):
+        if(dist):
+            return Business.objects.filter(district=dist)
+        else:
+            return Business.get_all_business()
+        
+    @staticmethod
+    def get_all_business_by_category(cat):
+        if(cat):
+            return Business.objects.filter(category=cat)
+        else:
+            return Business.get_all_business()

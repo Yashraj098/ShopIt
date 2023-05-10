@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import UsedPostForm,ItemForm,BusinessForm
-from .models import Used,Item,Business
+from .models import Used,Item,Business,Category
 from django.http import HttpResponseRedirect
 
 
@@ -63,8 +63,19 @@ def catalog(request):
         admin=True
     else:
         admin=False
-    Items= Item.objects.order_by('-title')
-    return render(request, 'ecom/catalog.html',{'Items':Items,'admin':admin})
+    distval=request.GET.get('dist')
+    catval=request.GET.get('cat')
+    Items= None
+    if distval:
+        Items=Item.get_all_items_by_district(distval)
+    else:
+        Items= Item.objects.order_by('-title')
+        if catval:
+            Items=Item.get_all_items_by_category(catval)
+        else:
+            Items= Item.objects.order_by('-title') 
+    category=Category.get_all_category()
+    return render(request, 'ecom/catalog.html',{'Items':Items,'admin':admin,'categories':category})
 
 def itemdetail(request, product_id):
     product= get_object_or_404(Item,pk=product_id)
@@ -88,7 +99,13 @@ def itempost(request):
 #REFUB
 
 def used(request):
-    useds= Used.objects.order_by('-posted')
+    distval=request.GET.get('dist')
+    
+    useds= None
+    if distval:
+        useds=Used.get_all_useds_by_district(distval)
+    else:
+        useds= Used.objects.order_by('-posted')
     return render(request, 'ecom/used.html',{'useds':useds})
 
 @login_required
@@ -112,12 +129,25 @@ def useddetail(request, used_id):
 #BUSINESS
 
 def business(request):
-    products= Business.objects.order_by('-title')
     if request.user.username == "admin":
         admin=True
     else:
         admin=False
-    return render(request, 'ecom/business.html',{'products':products,'admin':admin})
+    catval=request.GET.get('cat')
+    distval=request.GET.get('dist')
+    
+    products= None
+    
+    if distval:
+        products=Business.get_all_business_by_district(distval)
+    else:
+        products= Business.objects.order_by('-title')
+        if catval:
+            products=Business.get_all_business_by_category(catval)
+        else:
+            products= Business.objects.order_by('-title')
+    categories=Category.get_all_category()
+    return render(request, 'ecom/business.html',{'products':products,'admin':admin,'categories':categories})
 
 def businessdetail(request, product_id):
     product= get_object_or_404(Business,pk=product_id)
