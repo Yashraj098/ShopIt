@@ -22,6 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('contact/', views.contact,name='contact'),
+    path('orders/',views.orders,name='orders'),
+    path('cart/',views.cart, name='cart'),
+    path('checkout/',views.checkout, name='checkout'),
+    path('cart/<int:cart_pk>/delete',views.deletecart, name='deletecart'),
     #Auth
     path('signup/',views.signupuser,name='signupuser'),
     path('login/',views.loginuser, name='loginuser'),
@@ -30,7 +34,6 @@ urlpatterns = [
     #ECOM
     path('',views.home, name='home'),
     path('catalog/',views.catalog,name='catalog'),
-    path('orders/',views.orders,name='orders'),
     path('catalog/<int:item_id>/', views.itemdetail, name='itemdetail'),
     path('catalog/post/',views.itempost,name='itempost'),
     #REFUB

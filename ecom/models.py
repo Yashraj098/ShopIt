@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from phone_field import PhoneField
 from phonenumber_field.modelfields import PhoneNumberField
+from django.utils import timezone
 
 
 #Used Products
@@ -28,17 +29,6 @@ class Used(models.Model):
             return Used.objects.filter(district=dist)
         else:
             return Used.get_all_useds()
-
-#Category List
-class Category(models.Model):
-    title = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.category
-    @staticmethod
-    def get_all_category():
-        return Category.objects.all()
-
 
 #New Products
 class Item(models.Model):
@@ -113,3 +103,57 @@ class Business(models.Model):
             return Business.objects.filter(category=cat)
         else:
             return Business.get_all_business()
+        
+
+#Category List
+class Category(models.Model):
+    title = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.title
+    @staticmethod
+    def get_all_category():
+        return Category.objects.all()
+    
+
+class Cart(models.Model):
+    title = models.CharField(max_length=100)
+    price = models.FloatField()
+    dprice = models.FloatField(null=True,blank=True)
+    description_short = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='media/Cart/', null=True, blank=True)
+    state=models.CharField(max_length=20,default="")
+    district=models.CharField(max_length=20,default="")
+    user=models.ForeignKey( User ,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+    @staticmethod
+    def get_all_by_user(accountuser):
+        if accountuser:
+            return Cart.objects.filter(user=accountuser)
+        
+
+class Orders(models.Model):
+    title = models.CharField(max_length=100)
+    price = models.FloatField()
+    dprice = models.FloatField(null=True,blank=True)
+    description_short = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='media/Orders/', null=True, blank=True)
+    state=models.CharField(max_length=20,default="")
+    city=models.CharField(max_length=20,default="")
+    user=models.ForeignKey( User ,on_delete=models.CASCADE)
+    name=models.CharField(max_length=20,default="")
+    phone=PhoneField(default=0)
+    address=models.CharField(max_length=100,default="")
+    pincode=models.IntegerField()
+    timeplaced=models.DateTimeField(default=timezone.now())
+
+    def __str__(self):
+        return self.title
+
+    def get_all():
+        return Orders.objects.all()
+    
+    def get_by_user(usr):
+        return Orders.objects.filter(user=usr)

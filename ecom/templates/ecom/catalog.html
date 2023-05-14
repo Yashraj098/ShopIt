@@ -198,7 +198,7 @@ Puducherry : ["Karaikal","Mahe","Puducherry","Yanam"],
                   <div class="flex flex-wrap -m-4">
                     {% for item in Items %}
                     <div class="lg:w-1/4 sm:w-1/2 p-4 w-full">
-                      <!--<a class="block relative h-48 rounded overflow-hidden" href="{% url 'itemdetail' item.id %}">-->
+                      <a class="block relative h-48 rounded overflow-hidden" href="{% url 'itemdetail' item.id %}">
                         <img
                           class="object-contain object-center w-full h-full block"
                           src="{{ item.image.url }}" />
@@ -208,7 +208,7 @@ Puducherry : ["Karaikal","Mahe","Puducherry","Yanam"],
                           class="title-font text-lg font-medium text-white">
                           {{ item.title }}
                         </h3>
-                        <p class="mt-1 text-gray-300">₹{{ item.price }}</p>
+                        <p class="mt-1 text-gray-300">₹{{ item.disc_price }}</p>
                         <h2
                           class="text-gray-300 text-xs tracking-widest title-font mb-1">
                           {{ item.description_short|striptags|truncatechars:40 }}

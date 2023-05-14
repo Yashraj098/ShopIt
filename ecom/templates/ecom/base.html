@@ -159,29 +159,48 @@
                 </li>
               </ul>
               <div class="space-x-2 hidden text-indigo-600 font-bold lg:block" >
-                {% if user.is_authenticated %}
-                Hi {{user.username}}!  &nbsp;
-                <a href="{% url 'orders' %}" target="_self"><button
-                  class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
-                  Orders
-                </button></a>
-                <form action="{% url 'logoutuser' %}" method="POST">
-                  {% csrf_token %}
-                  <button type="submit"
-                  class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
-                  Logout
-                  </button>
-                </form>
-                {% else %}
-                <a href="{% url 'loginuser' %}" target="_self"><button
-                  class="rounded-md border border-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-indigo-600 hover:bg-indigo-500" style="margin-right: -10px;">
-                  Login
-                </button></a>
-                <a href="{% url 'signupuser' %}" target="_self"><button
-                  class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
-                  SignUp
-                </button></a>
-                {% endif %}
+                <ul class="hidden absolute top-1/2 right-4 transform -translate-y-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-4">
+                  {% if user.is_authenticated %}
+                  <li>
+                    Hi {{user.username}}! &nbsp;
+                  </li>
+                  <li>
+                    <a href="{% url 'cart' %}" target="_self" >
+                      <img src="{% static 'ecom/cart.png' %}" width="70" height="55">
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'orders' %}" target="_self">
+                      <button class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
+                        Orders
+                      </button>
+                    </a>
+                  </li>
+                  <li>
+                    <form action="{% url 'logoutuser' %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
+                        Logout
+                      </button>
+                    </form>
+                  </li>
+                  {% else %}
+                  <li>
+                    <a href="{% url 'loginuser' %}" target="_self">
+                      <button class="rounded-md border border-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-indigo-600 hover:bg-indigo-500" style="margin-right: -10px;">
+                        Login
+                      </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'signupuser' %}" target="_self">
+                      <button class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
+                        SignUp
+                      </button>
+                    </a>
+                  </li>
+                  {% endif %}
+                </ul>
               </div>
             </nav>
           </div>

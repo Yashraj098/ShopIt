@@ -1,43 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script>
+  function myFunction() {
+  // document.getElementById("demo").innerHTML = "Hello World";
+  alert("Login to Add to Cart!!");
+}
+</script>
   
 </head>
 {% extends 'ecom/base.html' %}
 {% load static %}
 {% block content %}
 <body style="background-color: rgb(0, 0, 0);">
-    <h1 class="text-white">{{ product.title }}</h1>
+    <h1 class="text-white">{{ item.title }}</h1>
 
     <section class="text-gray-600 dark:bg-gray-900 body-font overflow-hidden">
         <div class="container px-5 py-24 mx-auto">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img
               class="lg:w-1/2 w-full lg:h-96 h-64 object-contain object-center rounded"
-              src="{{ product.image.url }}" />
+              src="{{ item.image.url }}" />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h1
                 class="text-white text-3xl title-font font-medium mb-1">
-                {{ product.title }}
+                {{ item.title }}
               </h1>
               <p class="leading-relaxed text-gray-300">
-                {{ product.district }}, {{product.state}}
+                {{ item.district }}, {{item.state}}
               </p>
               <br>
               <div class="flex">
                 <span
                   class="title-font font-medium text-2xl text-white">
-                  ₹{{ product.disc_price }}
+                  ₹{{ item.disc_price }}
                 </span>
-                <button onclick="copyText()"
-                  class="ml-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
-                  {{product.category}}
-                </button>
+                {% if user.is_authenticated %}
+                  <form action="" method="POST" >
+                  {% csrf_token %}
+                  <button
+                  type="submit" class="ml-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
+                  Add to Cart
+                  </button>
+                  </form>
+                {% else %}
+                  <button
+                    type="submit" onclick="myFunction()" class="ml-auto rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
+                    Add to Cart
+                  </button>
+                {% endif %}
               </div>
               <br>
               <br>
               <p class="leading-relaxed text-gray-300">
-                {{ product.description_long }}
+                {{ item.description_long }}
               </p>
             </div>
           </div>
