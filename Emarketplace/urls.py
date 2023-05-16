@@ -23,9 +23,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('contact/', views.contact,name='contact'),
     path('orders/',views.orders,name='orders'),
+    path('orders/<int:order_id>/', views.orderdetail, name='orderdetail'),
     path('cart/',views.cart, name='cart'),
-    path('checkout/',views.checkout, name='checkout'),
     path('cart/<int:cart_pk>/delete',views.deletecart, name='deletecart'),
+    path('checkout/',views.checkout, name='checkout'),
+    path('checkout/orderplaced/',views.orderplaced,name='orderplaced'),
+
     #Auth
     path('signup/',views.signupuser,name='signupuser'),
     path('login/',views.loginuser, name='loginuser'),

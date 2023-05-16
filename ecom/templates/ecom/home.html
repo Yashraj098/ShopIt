@@ -6,7 +6,173 @@
 {% load static %}
 {% block content %}
 <body style="background-color: rgb(0, 0, 0);">
-<h1 class="text-white">Home Page</h1>
+
+  <div id="slider">
+    <figure>
+        <img  src="https://c2.staticflickr.com/4/3743/8760292213_501dea0d6d_b.jpg">
+        <img src="http://orig05.deviantart.net/4f25/f/2014/116/e/d/surprise_kiss__made_for_my_boyfriend__by_thekrisspybacon-d7g2gz9.png">
+        <img src="https://c2.staticflickr.com/8/7033/6751442355_83cfe78752_b.jpg">
+    </figure>
+    <style>
+      #slider {
+	overflow: hidden;
+}
+
+@keyframes slider {
+	0% { left: 0; }
+	30% { left: 0; }
+	33% { left: -100%; }
+	63% { left: -100%; }
+	66% { left: -200%; }
+	95% { left: -200%; }
+	100% { left: 0; }
+}
+#slider figure {
+	width:200%;
+	position: relative;
+	animation: 9s slider infinite;
+}
+
+#slider figure:hover {
+	/*animation-play-state: paused; enable for pause on hover*/
+}
+#slider figure img {
+	width: 33.333333333%;
+	height : 50%;
+	float: left;
+}
+    </style>
+</div>
+<h2 class="text-3xl font-bold text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Trending Products</h2>
+<div class="mx-auto grid w-full max-w-7xl items-center space-y-4 px-2 py-10 md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-4">
+    {% for item in Items %}
+    <div class="rounded-md border">
+      <img
+        src="{{item.image.url}}"
+        class="aspect-[16/9] w-full rounded-md md:aspect-auto md:h-[300px] lg:h-[200px]"
+      />
+      <div class="p-4">
+        <h1 class="inline-flex items-center text-white text-lg font-semibold">
+          {{item.title}}
+        </h1>
+        <p class="mt-3 text-sm text-gray-300">
+          {{item.description_short}}
+        </p>
+        <div class="mt-4">
+          <span class="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
+            {{item.district}}, {{item.state}}
+          </span>
+          <span class="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
+            {{item.category}}
+          </span>
+        </div>
+        <a href="{% url 'itemdetail' item.id %}" ><button
+          type="button"
+          class="mt-4 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+        >
+        View Product
+        </button>
+    </a>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <h2 class="text-3xl font-bold text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Used products in Jaipur</h2>
+<div class="mx-auto grid w-full max-w-7xl items-center space-y-4 px-2 py-10 md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-4">
+    {% for used in Useds %}
+    <div class="rounded-md border">
+      <img
+        src="{{used.image.url}}"
+        class="aspect-[16/9] w-full rounded-md  md:h-[300px] lg:h-[200px]"
+      />
+      <div class="p-4">
+        <h1 class="inline-flex items-center text-white text-lg font-semibold">
+          {{used.title}}
+        </h1>
+        <p class="mt-3 text-sm text-gray-300">
+          {{used.description| truncatechars:40}}
+        </p>
+        <div class="mt-4">
+          <span class="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
+            {{used.district}}, {{used.state}}
+          </span>
+          <span class="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
+            ₹{{used.price}}
+          </span>
+        </div>
+        <a href="{% url 'useddetail' used.id %}" ><button
+          type="button"
+          class="mt-4 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+        >
+        View Product
+        </button>
+    </a>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h2 class="text-3xl font-bold text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Shop Business Products</h2>
+<div class="mx-auto grid w-full max-w-7xl items-center space-y-4 px-2 py-10 md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-4">
+    {% for product in Products %}
+    <div class="rounded-md border">
+      <img
+        src="{{product.image.url}}"
+        class="aspect-[16/9] w-full rounded-md md:aspect-auto md:h-[300px] lg:h-[200px]"
+      />
+      <div class="p-4">
+        <h1 class="inline-flex items-center text-white text-lg font-semibold">
+          {{product.title}}
+        </h1>
+        <p class="mt-3 text-sm text-gray-300">
+          {{product.description_short}}
+        </p>
+        <div class="mt-4">
+          <span class="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
+            {{product.district}}, {{product.state}}
+          </span>
+          <span class="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
+            ₹{{product.price}}
+          </span>
+        </div>
+        <a href="{% url 'businessdetail' product.id %}" ><button
+          type="button"
+          class="mt-4 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+        >
+        View Product
+        </button>
+    </a>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+  
+  
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </body>
 </html>
 {% endblock %}

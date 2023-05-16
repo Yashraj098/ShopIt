@@ -143,11 +143,12 @@ class Orders(models.Model):
     state=models.CharField(max_length=20,default="")
     city=models.CharField(max_length=20,default="")
     user=models.ForeignKey( User ,on_delete=models.CASCADE)
-    name=models.CharField(max_length=20,default="")
+    name=models.CharField(max_length=30,default="")
     phone=PhoneField(default=0)
     address=models.CharField(max_length=100,default="")
     pincode=models.IntegerField()
     timeplaced=models.DateTimeField(default=timezone.now())
+    status=models.CharField(max_length=20, default=" ")
 
     def __str__(self):
         return self.title

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import UsedPostForm,ItemForm,BusinessForm
+from .forms import UsedPostForm,ItemForm,BusinessForm,OrderForm
 from .models import Used,Item,Business,Category,Cart,Orders
 from django.http import HttpResponseRedirect
 from django.utils import timezone
@@ -13,9 +13,9 @@ from django.utils import timezone
 # Create your views here.
 
 def home(request):
-    Items= Item.objects.order_by('-title')
-    Useds=Used.get_all_useds_by_district("Jaipur")
-    Products= Business.objects.order_by('-title')
+    Items= Item.objects.order_by('-title')[:4]
+    Useds=Used.get_all_useds_by_district("Jaipur")[:4]
+    Products= Business.objects.order_by('-title')[:4]
     return render(request, 'ecom/home.html',{'Items':Items,'Useds':Useds,'Products':Products})
 
 def contact(request):
@@ -57,13 +57,34 @@ def logoutuser(request):
     
 @login_required
 def orders(request):
-    if request.user=="admin":
-        orders=Orders.get_all()
+
+    if request.user.username=="admin":
+        admin=True
+        orders=Orders.objects.order_by('-timeplaced')
     else:
+        admin=False
         user=request.user
         orders=Orders.get_by_user(user)
+        
+    return render(request,'ecom/orders.html',{'orders':orders,'admin':admin})
 
-    return render(request,'ecom/orders.html',{'orders':orders})
+@login_required
+def orderdetail(request,order_id):
+    order=get_object_or_404(Orders, pk=order_id)
+
+    if request.method=="GET":
+        if(request.user.username=="admin"):
+            admin=True
+        else:
+            admin=False
+        form=OrderForm(instance=order)
+        discount=order.price-order.dprice
+        return render(request,'ecom/orderdetail.html',{'order':order,'form':form,'discount':discount,'admin':admin})
+    else:
+        form=OrderForm(request.POST, instance=order)
+        form.save()
+        return redirect(orders)
+
 
 @login_required
 def cart(request):
@@ -109,9 +130,10 @@ def checkout(request):
             order.state=state
             order.image=product.image
             order.timeplaced=timezone.now()
+            order.status="Placed"
             order.save()
             product.delete()
-        return redirect(home)
+        return redirect(orderplaced)
     else:    
         total=0
         dtotal=0
@@ -120,6 +142,10 @@ def checkout(request):
             dtotal+=p.dprice
         discount=total-dtotal
         return render(request,'ecom/checkout.html',{'products':products,'total':total,'dtotal':dtotal,'discount':discount})
+    
+def orderplaced(request):
+    return render(request,'ecom/orderplaced.html')
+
 
 
 #--------------------------ECOM-----------------------------
