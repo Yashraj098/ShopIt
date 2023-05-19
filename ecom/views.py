@@ -18,9 +18,6 @@ def home(request):
     Products= Business.objects.order_by('-title')[:4]
     return render(request, 'ecom/home.html',{'Items':Items,'Useds':Useds,'Products':Products})
 
-def contact(request):
-    return render(request, 'ecom/contact.html')
-
 def signupuser(request):
     if request.method=='GET':
         return render(request, 'ecom/signupuser.html', {'form': UserCreationForm()})
@@ -64,7 +61,7 @@ def orders(request):
     else:
         admin=False
         user=request.user
-        orders=Orders.get_by_user(user)
+        orders=Orders.get_by_user(user).order_by('-timeplaced')
         
     return render(request,'ecom/orders.html',{'orders':orders,'admin':admin})
 

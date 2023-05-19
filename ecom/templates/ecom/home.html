@@ -9,40 +9,45 @@
 
   <div id="slider">
     <figure>
-        <img  src="https://c2.staticflickr.com/4/3743/8760292213_501dea0d6d_b.jpg">
-        <img src="http://orig05.deviantart.net/4f25/f/2014/116/e/d/surprise_kiss__made_for_my_boyfriend__by_thekrisspybacon-d7g2gz9.png">
-        <img src="https://c2.staticflickr.com/8/7033/6751442355_83cfe78752_b.jpg">
+        <a href="{% url 'itemdetail' 4 %}"><img src="{% static 'ecom/Banner1.jpg' %}"></a> 
+        <a href="{% url 'itemdetail' 10 %}"><img src="{% static 'ecom/Banner2.jpg' %}"></a> 
+        <a href="{% url 'itemdetail' 3 %}"><img src="{% static 'ecom/Banner3.jpg' %}"></a> 
     </figure>
     <style>
-      #slider {
-	overflow: hidden;
-}
+        #slider {
+            overflow: hidden;
+        }
 
-@keyframes slider {
-	0% { left: 0; }
-	30% { left: 0; }
-	33% { left: -100%; }
-	63% { left: -100%; }
-	66% { left: -200%; }
-	95% { left: -200%; }
-	100% { left: 0; }
-}
-#slider figure {
-	width:200%;
-	position: relative;
-	animation: 9s slider infinite;
-}
+        @keyframes slider {
+            0% { left: 0; }
+            30% { left: 0; }
+            33% { left: -100%; }
+            63% { left: -100%; }
+            66% { left: -200%; }
+            95% { left: -200%; }
+            100% { left: 0; }
+        }
+        
+        #slider figure {
+            width: 300%;
+            position: relative;
+            animation: 9s slider infinite;
+        }
 
-#slider figure:hover {
-	/*animation-play-state: paused; enable for pause on hover*/
-}
-#slider figure img {
-	width: 33.333333333%;
-	height : 50%;
-	float: left;
-}
+        #slider figure:hover {
+            /*animation-play-state: paused; enable for pause on hover*/
+        }
+
+        #slider figure img {
+            width: 33.333333333%;
+            height: 50%;
+            float: left;
+        }
     </style>
 </div>
+
+<br>
+<br>
 <h2 class="text-3xl font-bold text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Trending Products</h2>
 <div class="mx-auto grid w-full max-w-7xl items-center space-y-4 px-2 py-10 md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-4">
     {% for item in Items %}
