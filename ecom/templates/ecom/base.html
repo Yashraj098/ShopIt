@@ -149,10 +149,13 @@
                     Hi {{user.username}}! &nbsp;
                   </li>
                   <li>
-                    <a href="{% url 'cart' %}" target="_self" >
+                    <a href="{% url 'cart' %}" target="_self">
                       <img src="{% static 'ecom/cart.png' %}" width="70" height="55">
+                      <span style="position: relative; top: -25px; left: 40px; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); padding: 3px 8px; border-radius: 50%;">{{ cart_count }}</span>
                     </a>
                   </li>
+                  
+                  
                   <li>
                     <a href="{% url 'orders' %}" target="_self">
                       <button class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">

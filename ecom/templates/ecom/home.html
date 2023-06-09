@@ -51,10 +51,11 @@
 <h2 class="text-3xl font-bold text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Trending Products</h2>
 <div class="mx-auto grid w-full max-w-7xl items-center space-y-4 px-2 py-10 md:grid-cols-2 md:gap-6 md:space-y-0 lg:grid-cols-4">
     {% for item in Items %}
-    <div class="rounded-md border">
+    <div class="rounded-md border " style="height: 580px;">
       <img
         src="{{item.image.url}}"
         class="aspect-[16/9] w-full rounded-md md:aspect-auto md:h-[300px] lg:h-[200px]"
+        style="height:300px ;"
       />
       <div class="p-4">
         <h1 class="inline-flex items-center text-white text-lg font-semibold">
